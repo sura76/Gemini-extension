@@ -1,0 +1,53 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gemini Assistant</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <img src="../../icons/icon48.png" width="24" height="24" alt=""/>
+      <h1>Gemini Assistant</h1>
+      <span id="auth-status" class="badge">Signed Out</span>
+    </header>
+
+    <section class="row">
+      <label for="model">Model</label>
+      <select id="model">
+        <option value="models/gemini-1.5-pro-latest">Gemini 1.5 Pro (latest)</option>
+        <option value="models/gemini-1.5-flash-latest">Gemini 1.5 Flash (latest)</option>
+        <option value="models/gemini-2.0-flash-exp">Gemini 2.0 Flash (experimental)</option>
+      </select>
+    </section>
+
+    <section class="row">
+      <label class="switch">
+        <input type="checkbox" id="useOAuth">
+        <span class="slider"></span>
+      </label>
+      <div class="switch-label">Use OAuth (if configured)</div>
+    </section>
+
+    <section class="row">
+      <button id="login">Login</button>
+      <button id="logout" class="secondary">Logout</button>
+      <button id="open-options" class="link">Options…</button>
+    </section>
+
+    <section class="row">
+      <button id="view-history" class="ghost">View Interaction History</button>
+      <button id="clear-history" class="ghost">Clear History</button>
+    </section>
+
+    <section id="history"></section>
+
+    <footer>
+      <small>Tip: right‑click text or images to use Gemini. Toggle on page with Alt+G.</small>
+    </footer>
+
+    <script src="popup.js" type="module"></script>
+  </body>
+</html>

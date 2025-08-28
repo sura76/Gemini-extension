@@ -1,0 +1,38 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gemini Assistant – Options</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <h1>Gemini Assistant – Options</h1>
+    <section>
+      <label for="apiKey">Gemini API Key</label>
+      <input id="apiKey" type="text" placeholder="Paste your API key (stored locally)" />
+      <button id="save">Save</button>
+      <button id="wipe" class="danger">Clear</button>
+      <p class="help">Keys are stored with <code>chrome.storage.local</code> on your device only.</p>
+    </section>
+
+    <section>
+      <label for="defaultModel">Default Model</label>
+      <select id="defaultModel">
+        <option value="models/gemini-1.5-pro-latest">Gemini 1.5 Pro (latest)</option>
+        <option value="models/gemini-1.5-flash-latest">Gemini 1.5 Flash (latest)</option>
+        <option value="models/gemini-2.0-flash-exp">Gemini 2.0 Flash (experimental)</option>
+      </select>
+    </section>
+
+    <section>
+      <label class="row">
+        <input type="checkbox" id="useOAuthOpt" />
+        <span>Use OAuth instead of API key (requires configuring OAuth Client ID in manifest and implementing flow)</span>
+      </label>
+    </section>
+
+    <script src="options.js" type="module"></script>
+  </body>
+</html>
