@@ -1,84 +1,108 @@
-# Gemini-extension
-A starter template for building Chrome extensions with Manifest V3, featuring a popup, background worker, content script, and a customizable options page.
+# Gemini Extension
 
-# Gemini Chrome Extension Scaffold
+This repository contains the source code for the Gemini Extension, a powerful AI-powered Chrome extension designed to assist users with various tasks by leveraging Google's Gemini models.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Current Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/sura76/Gemini-extension)
-[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Coming%20Soon-brightgreen.svg)](https://chrome.google.com/webstore)
+## 🚀 Features
 
-A simple Chrome Extension scaffold that demonstrates core features like a popup UI, content scripts that interact with web pages, a background service worker, and a customizable options page. It's an excellent starting point for building your own Chrome extension with Manifest V3.
+The extension is composed of a Python backend and a Chrome Extension frontend, providing the following features:
 
----
+### 1. Visual Query (Screenshot Analysis)
+- **Action**: Click the extension icon to activate a crosshair cursor.
+- **Functionality**: Select any rectangular area on a webpage to capture a screenshot. The captured image is sent to the backend for analysis.
+- **Result**: A floating, draggable modal appears on the page, displaying a detailed, AI-generated explanation or solution based on the content of the screenshot.
 
-## ✨ Features
+### 2. AI Writing Assistant
+- **Action**: Highlight any text in a textarea or on a webpage and right-click to open a context menu.
+- **Functionality**: Choose from several commands:
+    - **Improve Writing**: Rewrites the text to be clearer and more engaging.
+    - **Summarize Text**: Provides a concise summary.
+    - **Fix Grammar & Spelling**: Corrects any grammatical errors.
+    - **Change Tone to Professional**: Rewrites the text in a formal tone.
+- **Result**: The selected text is replaced in-place with the AI-generated version, with an option to undo the change.
 
-* **Popup UI**: A simple interface to send messages and trigger actions in the background script.
-* **Content Script**: Directly interacts with the DOM of web pages, in this case, to highlight the page background.
-* **Customizable Options**: Includes an options page where users can choose and save their preferences (e.g., a highlight color).
-* **Background Service Worker**: Manages extension state, handles messages between components, and listens for browser events.
-* **Persistent Settings**: Uses `chrome.storage.sync` to save user settings across devices.
+### 3. Interactive AI Chat Tutor
+- **Action**: Open a persistent side panel in the browser.
+- **Functionality**: Engage in a conversation with an AI tutor. The chat is context-aware and can use the content of the current webpage to provide more accurate and relevant answers.
+- **Result**: A familiar chat interface where you can ask questions and receive answers, with the conversation history maintained for follow-up questions.
 
----
+## 🛠️ Technology Stack
 
-## 📂 Project Structure
+- **Backend**:
+    - **Framework**: Python 3.11+ with [FastAPI](https://fastapi.tiangolo.com/)
+    - **AI Model**: Google Gemini Pro & Gemini Pro Vision
+    - **Web Server**: [Uvicorn](https://www.uvicorn.org/)
+    - **Testing**: [Pytest](https://docs.pytest.org/)
+- **Frontend (Chrome Extension)**:
+    - **Languages**: HTML, CSS, JavaScript
+    - **APIs**: Chrome Extension APIs (Context Menus, Side Panel, etc.)
 
-The repository is structured as a standard Chrome extension.
+## ⚙️ Setup and Installation
 
+### Backend Setup
 
-gemini-extension/
-│
-├── manifest.json        # Extension configuration (Manifest V3)
-├── background.js        # Background service worker logic
-├── popup.html           # HTML for the popup UI
-├── popup.js             # JavaScript for the popup UI
-├── options.html         # HTML for the options page
-├── content.js           # Script injected into web pages
-│
-└── icons/               # Extension icons (16px, 48px, 128px)
-
-
----
-
-## 🚀 Installation
-
-To install this extension locally for development:
-
-1.  **Clone the repository**:
+1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/sura76/Gemini-extension.git](https://github.com/sura76/Gemini-extension.git)
+    git clone <repository-url>
+    cd <repository-directory>
     ```
-2.  Open Google Chrome and navigate to the extensions page at `chrome://extensions/`.
-3.  Enable **Developer Mode** using the toggle switch in the top-right corner.
-4.  Click the **Load unpacked** button.
-5.  Select the `gemini-extension` folder that you cloned.
 
-The extension icon will now appear in your Chrome toolbar. You may need to pin it to keep it visible.
+2.  **Create and activate a virtual environment:**
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    # On Windows, use `venv\Scripts\activate`
+    ```
 
----
+3.  **Install dependencies:**
+    ```bash
+    pip install -r backend/requirements.txt
+    ```
 
-## ⚙️ Usage
+4.  **Set up environment variables:**
+    -   Create a file named `.env` inside the `backend/` directory.
+    -   Add your Google Gemini API key to the file like this:
+        ```
+        GEMINI_API_KEY="YOUR_API_KEY_HERE"
+        ```
 
-1.  **Set a Color**: Right-click the extension icon and select "Options." Choose your preferred highlight color from the dropdown and save it.
-2.  **Activate**: Click the extension icon in your toolbar to open the popup.
-3.  **Highlight**: Click the "Highlight Page" button in the popup. The content script will apply your chosen color to the current page's background.
+5.  **Run the server:**
+    -   Navigate to the `backend` directory.
+    -   Use Uvicorn to run the FastAPI application:
+        ```bash
+        cd backend
+        uvicorn main:app --reload
+        ```
+    -   The server will be running at `http://127.0.0.1:8000`.
 
----
+### Frontend Setup
 
-## 🛠️ Development Notes
+*(This section is a placeholder and will be updated once the frontend is developed.)*
 
-* This scaffold is built using **Chrome Extension Manifest V3**, the latest standard for Chrome extensions.
-* It demonstrates the fundamental messaging pattern between the `popup`, `background`, and `content` scripts.
-* The code is intentionally kept simple and well-commented to be easy to understand and build upon.
+1.  Navigate to `chrome://extensions` in your Chrome browser.
+2.  Enable "Developer mode".
+3.  Click "Load unpacked" and select the `frontend` directory (once it is created).
 
----
+## 🧪 Running Tests
 
-## 📜 License
+The backend includes a suite of unit tests to ensure its functionality and reliability.
 
-This project is licensed under the **MIT License**. Feel free to use, modify, and distribute it as you see fit.
+To run the tests, navigate to the root directory of the project and run `pytest`:
+```bash
+pytest backend/
+```
 
+## 📄 API Endpoints
 
+The backend exposes the following API endpoints:
 
+-   `POST /image-query`
+    -   **Payload**: `{ "image_data": "data:image/png;base64,..." }`
+    -   **Response**: `{ "answer": "AI-generated analysis..." }`
 
+-   `POST /text-tool`
+    -   **Payload**: `{ "text": "...", "command": "Improve Writing" }`
+    -   **Response**: `{ "result_text": "AI-generated text..." }`
 
-
+-   `POST /chat`
+    -   **Payload**: `{ "message": "...", "page_url": "http://..." }`
+    -   **Response**: `{ "reply": "AI-generated reply..." }`
