@@ -1,0 +1,41 @@
+{
+  "name": "Gemini AI Assistant",
+  "description": "Interact with any web page using Gemini AI: summarize, translate, explain images, and ask page-aware questions.",
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "Gemini AI Assistant"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "contextMenus",
+    "identity",
+    "notifications"
+  ],
+  "optional_permissions": [
+    "clipboardWrite"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "oauth2": {
+    "client_id": "REPLACE_WITH_YOUR_OAUTH_CLIENT_ID.apps.googleusercontent.com",
+    "scopes": [
+      "openid",
+      "email"
+    ]
+  },
+  "minimum_chrome_version": "114"
+}
